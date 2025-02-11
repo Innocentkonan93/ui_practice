@@ -33,7 +33,7 @@ List<Transaction> dummyTransactions = [
     amount: 200.0,
     currency: 'USD',
     status: 'completed',
-    date: DateTime.now().subtract(Duration(days: 1)),
+    date: DateTime.now().subtract(const Duration(days: 1)),
     color: Colors.green,
   ),
   Transaction(
@@ -44,7 +44,7 @@ List<Transaction> dummyTransactions = [
     amount: 75.0,
     currency: 'EUR',
     status: 'pending',
-    date: DateTime.now().subtract(Duration(days: 2)),
+    date: DateTime.now().subtract(const Duration(days: 2)),
     color: Colors.orange,
   ),
   Transaction(
@@ -55,7 +55,7 @@ List<Transaction> dummyTransactions = [
     amount: 150.5,
     currency: 'GBP',
     status: 'failed',
-    date: DateTime.now().subtract(Duration(days: 3)),
+    date: DateTime.now().subtract(const Duration(days: 3)),
     color: Colors.red,
   ),
 ];

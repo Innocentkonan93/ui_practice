@@ -39,7 +39,7 @@ class _LoadingViewState extends State<LoadingView> {
                 repeat: false,
                 height: 400,
                 onLoaded: (p0) {
-                  print(p0.duration);
+                  // print(p0.duration);
                 },
               ),
             ),

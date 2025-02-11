@@ -35,7 +35,7 @@ class _WalletViewState extends State<WalletView> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.sizeOf(context);
+    // final size = MediaQuery.sizeOf(context);
     final theme = context.theme;
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 249, 249, 249),
@@ -701,7 +701,7 @@ class _NotifDialogState extends State<NotifDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.sizeOf(context);
+    // final size = MediaQuery.sizeOf(context);
     final double statusBarHeight = MediaQuery.paddingOf(context).top;
     final theme = context.theme;
 

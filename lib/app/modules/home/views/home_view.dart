@@ -30,7 +30,7 @@ class HomeView extends GetView<HomeController> {
                 children: [
                   CircleAvatar(
                     radius: 70,
-                    backgroundColor: Colors.grey.withOpacity(.1),
+                    backgroundColor: Colors.grey.withValues(alpha: .1),
                     child: const Icon(
                       CupertinoIcons.person_alt,
                       size: 60,
@@ -55,22 +55,22 @@ class HomeView extends GetView<HomeController> {
                         borderSide: BorderSide(
                           width: 2,
                           color: controller.isIconOnRight.value
-                              ? theme.colorScheme.primary.withOpacity(.4)
-                              : Colors.green.withOpacity(.4),
+                              ? theme.colorScheme.primary.withValues(alpha: .4)
+                              : Colors.green.withValues(alpha: .4),
                         ),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           width: 1.5,
                           color: controller.isIconOnRight.value
-                              ? theme.colorScheme.primary.withOpacity(.4)
-                              : Colors.green.withOpacity(.4),
+                              ? theme.colorScheme.primary.withValues(alpha: .4)
+                              : Colors.green.withValues(alpha: .4),
                         ),
                       ),
                       filled: true,
                       fillColor: controller.isIconOnRight.value
-                          ? theme.colorScheme.primary.withOpacity(.1)
-                          : Colors.green.withOpacity(.1),
+                          ? theme.colorScheme.primary.withValues(alpha: .1)
+                          : Colors.green.withValues(alpha: .1),
                       constraints:
                           const BoxConstraints(maxHeight: 60, maxWidth: 300),
                       contentPadding: const EdgeInsets.symmetric(
@@ -149,22 +149,24 @@ class HomeView extends GetView<HomeController> {
                           borderSide: BorderSide(
                             width: 2,
                             color: controller.isIconOnRight.value
-                                ? theme.colorScheme.primary.withOpacity(.4)
-                                : Colors.green.withOpacity(.4),
+                                ? theme.colorScheme.primary
+                                    .withValues(alpha: .4)
+                                : Colors.green.withValues(alpha: .4),
                           ),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(
                             width: 1.5,
                             color: controller.isIconOnRight.value
-                                ? theme.colorScheme.primary.withOpacity(.4)
-                                : Colors.green.withOpacity(.4),
+                                ? theme.colorScheme.primary
+                                    .withValues(alpha: .4)
+                                : Colors.green.withValues(alpha: .4),
                           ),
                         ),
                         filled: true,
                         fillColor: controller.isIconOnRight.value
-                            ? theme.colorScheme.primary.withOpacity(.1)
-                            : Colors.green.withOpacity(.1),
+                            ? theme.colorScheme.primary.withValues(alpha: .1)
+                            : Colors.green.withValues(alpha: .1),
                         constraints: const BoxConstraints(
                           maxHeight: 60,
                           maxWidth: 300,

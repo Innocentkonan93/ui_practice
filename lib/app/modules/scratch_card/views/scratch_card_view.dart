@@ -1,10 +1,6 @@
-import 'dart:typed_data';
-
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
-
-import 'package:flutter/services.dart';
 
 class ScratchCardView extends StatefulWidget {
   const ScratchCardView({super.key});

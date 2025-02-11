@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:ui_challenge/app/configs/app_theme.dart';
 
 import 'app/routes/app_pages.dart';
 
@@ -20,28 +21,7 @@ class MyApp extends StatelessWidget {
       title: "Application",
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
-      theme: ThemeData(
-        inputDecorationTheme: InputDecorationTheme(
-          border: OutlineInputBorder(
-            borderSide: BorderSide(
-              width: 1,
-              color: theme.colorScheme.primary.withOpacity(.4),
-            ),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              width: 1,
-              color: Colors.grey.withOpacity(.4),
-            ),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              width: 1,
-              color: theme.colorScheme.primary.withOpacity(.4),
-            ),
-          ),
-        ),
-      ),
+      theme: appTheme,
     );
   }
 }
