@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.theme;
+    // final theme = context.theme;
     return GetMaterialApp(
       title: "Application",
       initialRoute: AppPages.INITIAL,

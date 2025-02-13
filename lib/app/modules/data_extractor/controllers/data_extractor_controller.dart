@@ -21,6 +21,7 @@ class DataExtractorController extends GetxController {
 
   final ImagePicker _picker = ImagePicker();
 
+  RxList<IdentityCard> extraxtedDataList = <IdentityCard>[].obs;
   Rxn<IdentityCard> selectedIdentityCard = Rxn<IdentityCard>();
 
   /// Sélectionne une image depuis la galerie
@@ -80,7 +81,6 @@ class DataExtractorController extends GetxController {
       // Convertir la chaîne JSON en un objet Map
       if (jsonString.isNotEmpty) {
         Map<String, dynamic> jsonData = jsonDecode(jsonString);
-        print(jsonString);
 
         IdentityCard identityCard = IdentityCard.fromJson(jsonData);
 
@@ -93,12 +93,10 @@ class DataExtractorController extends GetxController {
     } catch (e) {
       isAnalyzing(false);
       showSnackbar("Une erreur s'est produite", false);
-      print(e);
     }
   }
 
-  Future<void> writeToGoogleSheet() async {
-    // await googleService.writeToGoogleSheet(selectedIdentityCard.value!.toMap());
-    await googleService.authenticateAndWriteToSheet();
+  Future<void> savaExtractedData() async {
+    extraxtedDataList.add(selectedIdentityCard.value!);
   }
 }

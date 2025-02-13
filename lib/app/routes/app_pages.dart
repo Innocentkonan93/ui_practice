@@ -22,7 +22,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.DATA_EXTRACTOR;
+  static const INITIAL = Routes.WALLET;
 
   static final routes = [
     GetPage(

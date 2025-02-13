@@ -12,16 +12,16 @@ ThemeData appTheme = ThemeData(
   ),
 
   scaffoldBackgroundColor: const Color.fromARGB(255, 239, 241, 244),
-  dataTableTheme: DataTableThemeData(
+  dataTableTheme: const DataTableThemeData(
       decoration: BoxDecoration(
     color: AppColors.white,
   )),
-  cardTheme: CardTheme(
+  cardTheme: const CardTheme(
     color: AppColors.white, // reset margin
   ),
   appBarTheme: AppBarTheme(
     centerTitle: true,
-    systemOverlayStyle: SystemUiOverlayStyle(
+    systemOverlayStyle: const SystemUiOverlayStyle(
       statusBarBrightness: Brightness.light,
     ),
     surfaceTintColor: AppColors.white,
@@ -89,7 +89,7 @@ ThemeData appTheme = ThemeData(
   ),
   radioTheme: const RadioThemeData(),
   textTheme: GoogleFonts.jostTextTheme()
-      .copyWith(labelSmall: TextStyle(color: AppColors.grey)),
+      .copyWith(labelSmall: const TextStyle(color: AppColors.grey)),
   fontFamily: "Poppins",
   useMaterial3: true,
 );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:ui_challenge/app/modules/data_extractor/views/extracted_data_list_view.dart';
 import 'package:ui_challenge/app/widgets/custom_button.dart';
 
 import '../controllers/data_extractor_controller.dart';
@@ -13,6 +14,14 @@ class DataExtractorView extends GetView<DataExtractorController> {
       appBar: AppBar(
         centerTitle: true,
         title: const Text('Data Extractor'),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Get.to(() => const ExtractedDataListView());
+            },
+            icon: const Icon(Icons.list_rounded),
+          )
+        ],
       ),
       body: Center(
         child: Obx(() {
@@ -22,17 +31,24 @@ class DataExtractorView extends GetView<DataExtractorController> {
           return Column(
             children: [
               Expanded(
-                flex: 3,
-                child: Container(
-                  margin: const EdgeInsets.all(8.0),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.white,
-                  ),
-                  child: Image.file(
-                    controller.selectedImage.value!,
-                    fit: BoxFit.contain,
-                  ),
+                flex: 8,
+                child: Column(
+                  children: [
+                    Container(
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                      margin: const EdgeInsets.all(8.0),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(
+                          width: .5,
+                        ),
+                      ),
+                      child: Image.file(
+                        controller.selectedImage.value!,
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  ],
                 ),
               ),
               const SizedBox(height: 10),

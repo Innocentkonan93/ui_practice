@@ -6,6 +6,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:ui_challenge/app/configs/app_colors.dart';
 import 'package:ui_challenge/app/modules/wallet/controllers/models/coin_model.dart';
 import 'package:ui_challenge/app/modules/wallet/controllers/models/contact_model.dart';
 import 'package:ui_challenge/app/modules/wallet/controllers/models/payment_model.dart';
@@ -21,10 +22,54 @@ class WalletView extends StatefulWidget {
 class _WalletViewState extends State<WalletView> {
   late ScrollController scrollController;
 
+  void showNotif() async {
+    showGeneralDialog<bool>(
+      barrierColor: Colors.black.withValues(alpha: 0.35),
+      transitionBuilder: (context, a1, a2, widget) {
+        return GestureDetector(
+          onTap: () {
+            Get.back();
+          },
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+            child: FadeTransition(
+              opacity:
+                  Tween<double>(begin: 0.5, end: 1.0).animate(CurvedAnimation(
+                parent: a1,
+                curve: Curves.easeOut, // 🎯 Effet de sortie plus fluide
+              )),
+              child: Dialog(
+                backgroundColor: Colors.transparent,
+                insetPadding: const EdgeInsets.all(10),
+                child: NotifDialog(
+                  scrollController: scrollController,
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+      transitionDuration: const Duration(
+        milliseconds: 500,
+      ), // Un peu plus long pour bien voir l'effet
+      barrierDismissible: true,
+      barrierLabel: '',
+      context: context,
+      pageBuilder: (context, animation1, animation2) {
+        return const SizedBox();
+      },
+    );
+  }
+
   @override
   void initState() {
     super.initState();
     scrollController = ScrollController();
+
+    Future.delayed(
+      const Duration(seconds: 15),
+      showNotif,
+    );
   }
 
   @override
@@ -38,7 +83,7 @@ class _WalletViewState extends State<WalletView> {
     // final size = MediaQuery.sizeOf(context);
     final theme = context.theme;
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 249, 249, 249),
+      backgroundColor: const Color.fromARGB(255, 238, 238, 238),
       // appBar: AppBar(
       //   backgroundColor: Colors.transparent,
       //   surfaceTintColor: Colors.transparent,
@@ -58,40 +103,7 @@ class _WalletViewState extends State<WalletView> {
                     children: [
                       const Icon(Icons.home),
                       GestureDetector(
-                        onTap: () {
-                          showGeneralDialog<bool>(
-                            barrierColor: Colors.black.withValues(alpha: 0.35),
-                            transitionBuilder: (context, a1, a2, widget) {
-                              return BackdropFilter(
-                                filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
-                                child: FadeTransition(
-                                  opacity: Tween<double>(begin: 0.5, end: 1.0)
-                                      .animate(CurvedAnimation(
-                                    parent: a1,
-                                    curve: Curves
-                                        .easeOut, // 🎯 Effet de sortie plus fluide
-                                  )),
-                                  child: Dialog(
-                                    backgroundColor: Colors.transparent,
-                                    insetPadding: const EdgeInsets.all(10),
-                                    child: NotifDialog(
-                                      scrollController: scrollController,
-                                    ),
-                                  ),
-                                ),
-                              );
-                            },
-                            transitionDuration: const Duration(
-                              milliseconds: 500,
-                            ), // Un peu plus long pour bien voir l'effet
-                            barrierDismissible: true,
-                            barrierLabel: '',
-                            context: context,
-                            pageBuilder: (context, animation1, animation2) {
-                              return const SizedBox();
-                            },
-                          );
-                        },
+                        onTap: showNotif,
                         child: const Text(
                           'Wallet',
                           style: TextStyle(fontSize: 20),
@@ -119,7 +131,7 @@ class _WalletViewState extends State<WalletView> {
                   Text(
                     "\$117,664.9",
                     style: theme.textTheme.headlineLarge?.copyWith(
-                      fontWeight: FontWeight.w700,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                   const SizedBox(height: 10),
@@ -640,8 +652,9 @@ class _WalletViewState extends State<WalletView> {
                         child: ListTile(
                           leading: CircleAvatar(
                             radius: 20,
-                            foregroundImage:
-                                AssetImage("assets/avatars/${index + 1}.png"),
+                            foregroundImage: AssetImage(
+                              "assets/avatars/${index + 1}.png",
+                            ),
                           ),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10)),
@@ -656,7 +669,7 @@ class _WalletViewState extends State<WalletView> {
                           trailing: Column(
                             children: [
                               Text(
-                                "\$${transaction.amount.toStringAsFixed(1)}",
+                                "\$${transaction.amount}",
                                 style: theme.textTheme.titleMedium,
                               ),
                               Text(
@@ -672,7 +685,7 @@ class _WalletViewState extends State<WalletView> {
                         ),
                       );
                     },
-                    itemCount: dummyTransactions.take(3).length,
+                    itemCount: dummyTransactions.length,
                     shrinkWrap: true,
                     primary: false,
                   )
@@ -698,6 +711,7 @@ class _NotifDialogState extends State<NotifDialog> {
   bool isSwitched = false;
   bool canShow = false;
   bool startPayment = false;
+  bool isLading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -726,7 +740,7 @@ class _NotifDialogState extends State<NotifDialog> {
               });
             },
             clipBehavior: Clip.antiAliasWithSaveLayer,
-            duration: const Duration(milliseconds: 700),
+            duration: const Duration(milliseconds: 500),
             curve: Curves.easeInOut,
             decoration: BoxDecoration(
               color: const Color.fromARGB(255, 244, 244, 244),
@@ -747,7 +761,7 @@ class _NotifDialogState extends State<NotifDialog> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             AnimatedPadding(
-                              duration: const Duration(milliseconds: 700),
+                              duration: const Duration(milliseconds: 200),
                               padding: startPayment
                                   ? const EdgeInsets.all(20)
                                   : EdgeInsets.zero,
@@ -766,8 +780,12 @@ class _NotifDialogState extends State<NotifDialog> {
                                   borderRadius: BorderRadius.circular(
                                       startPayment ? 20 : 0),
                                 ),
-                                child: const SizedBox.expand(
-                                  child: FlutterLogo(),
+                                child: SizedBox.expand(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(20),
+                                    child:
+                                        Image.asset("assets/images/notif.png"),
+                                  ),
                                 ),
                               ),
                             ),
@@ -805,7 +823,7 @@ class _NotifDialogState extends State<NotifDialog> {
                                               begin: -1,
                                               end: 0,
                                               duration: const Duration(
-                                                  milliseconds: 700),
+                                                  milliseconds: 500),
                                             ),
                                         const SizedBox(height: 30),
                                         Column(
@@ -834,7 +852,7 @@ class _NotifDialogState extends State<NotifDialog> {
                                               begin: -1,
                                               end: 0,
                                               duration: const Duration(
-                                                  milliseconds: 700),
+                                                  milliseconds: 500),
                                             ),
                                         const SizedBox(height: 20),
                                         Container(
@@ -889,7 +907,7 @@ class _NotifDialogState extends State<NotifDialog> {
                                               begin: -1,
                                               end: 0,
                                               duration: const Duration(
-                                                  milliseconds: 700),
+                                                  milliseconds: 500),
                                             ),
                                         const SizedBox(height: 30),
                                         Column(
@@ -932,7 +950,7 @@ class _NotifDialogState extends State<NotifDialog> {
                                               begin: -1,
                                               end: 0,
                                               duration: const Duration(
-                                                  milliseconds: 700),
+                                                  milliseconds: 500),
                                             ),
                                         const SizedBox(height: 30),
                                         const ListTile(
@@ -957,7 +975,7 @@ class _NotifDialogState extends State<NotifDialog> {
                                               begin: -1,
                                               end: 0,
                                               duration: const Duration(
-                                                  milliseconds: 700),
+                                                  milliseconds: 500),
                                             ),
                                       ],
                                     ),
@@ -965,54 +983,128 @@ class _NotifDialogState extends State<NotifDialog> {
                             const Spacer(),
                             Padding(
                               padding: const EdgeInsets.all(30),
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  setState(() {
-                                    startPayment = true;
-                                  });
-                                  // if (startPayment == true) {
-                                  //   Get.back();
-                                  //   print("josco");
-                                  //   widget.scrollController.animateTo(
-                                  //     widget.scrollController.position
-                                  //         .maxScrollExtent,
-                                  //     duration: const Duration(
-                                  //       milliseconds: 500,
-                                  //     ),
-                                  //     curve: Curves.bounceInOut,
-                                  //   );
-                                  // }
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.blue,
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(14),
-                                      child: Text(
-                                        startPayment
-                                            ? "Done"
-                                            : "Pay 5,990 USDT",
-                                        style: theme.textTheme.titleLarge
-                                            ?.copyWith(
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                    ).animate().fadeIn(),
-                                  ],
-                                ),
-                              )
-                                  .animate()
-                                  .fadeIn(
-                                      duration: const Duration(seconds: 1),
-                                      delay: const Duration(milliseconds: 300))
-                                  .slideY(
-                                    begin: -1,
-                                    end: 0,
-                                    duration: const Duration(milliseconds: 300),
+                              child: Visibility(
+                                visible: startPayment,
+                                replacement: ElevatedButton(
+                                  onPressed: () async {
+                                    setState(() {
+                                      isLading = true;
+                                    });
+
+                                    await Future.delayed(
+                                      const Duration(seconds: 1),
+                                      () {
+                                        setState(() {
+                                          startPayment = true;
+                                        });
+                                      },
+                                    );
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.blue,
                                   ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(14),
+                                        child: Visibility(
+                                          visible: !isLading,
+                                          replacement: const SizedBox(
+                                            height: 25,
+                                            width: 25,
+                                            child: CircularProgressIndicator(
+                                              color: AppColors.white,
+                                            ),
+                                          ),
+                                          child: Text(
+                                            "Pay 5,990 USDT",
+                                            style: theme.textTheme.titleLarge
+                                                ?.copyWith(
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ),
+                                      ).animate().fadeIn(),
+                                    ],
+                                  ),
+                                )
+                                    .animate()
+                                    .fadeIn(
+                                        duration: const Duration(seconds: 1),
+                                        delay:
+                                            const Duration(milliseconds: 300))
+                                    .slideY(
+                                      begin: -1,
+                                      end: 0,
+                                      duration:
+                                          const Duration(milliseconds: 300),
+                                    ),
+                                child: ElevatedButton(
+                                  onPressed: () async {
+                                    if (startPayment == true) {
+                                      dummyTransactions.add(
+                                        Transaction(
+                                          id: '4',
+                                          userId: '103',
+                                          userName: 'Subscription',
+                                          receiver: 'Frank',
+                                          amount: 5.990,
+                                          currency: 'GBP',
+                                          status: 'failed',
+                                          date: DateTime.now().subtract(
+                                              const Duration(days: 3)),
+                                          color: Colors.red,
+                                        ),
+                                      );
+
+                                      Get.back();
+                                      print("josco");
+                                      await Future.delayed(
+                                          const Duration(seconds: 1));
+                                      widget.scrollController.animateTo(
+                                        widget.scrollController.position
+                                            .maxScrollExtent,
+                                        duration: const Duration(
+                                          milliseconds: 500,
+                                        ),
+                                        curve: Curves.decelerate,
+                                      );
+
+                                      setState(() {});
+                                    }
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.blue,
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(14),
+                                        child: Text(
+                                          "Done",
+                                          style: theme.textTheme.titleLarge
+                                              ?.copyWith(
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ).animate().fadeIn(),
+                                    ],
+                                  ),
+                                )
+                                    .animate()
+                                    .fadeIn(
+                                        duration: const Duration(seconds: 1),
+                                        delay:
+                                            const Duration(milliseconds: 300))
+                                    .slideY(
+                                      begin: -1,
+                                      end: 0,
+                                      duration:
+                                          const Duration(milliseconds: 300),
+                                    ),
+                              ),
                             ),
                           ],
                         ),
@@ -1058,7 +1150,7 @@ class _NotifDialogState extends State<NotifDialog> {
                               ),
                             ),
                             subtitle: Text(
-                              "Subscription \$5500",
+                              "Subscription \$5,990",
                               style: theme.textTheme.titleSmall?.copyWith(
                                 fontWeight: FontWeight.bold,
                               ),
@@ -1083,7 +1175,7 @@ class _NotifDialogState extends State<NotifDialog> {
           ).animate().slideY(
                 begin: -1,
                 end: 0,
-                duration: const Duration(milliseconds: 700),
+                duration: const Duration(milliseconds: 500),
               ),
         ),
       ],

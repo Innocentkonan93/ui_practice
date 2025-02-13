@@ -47,7 +47,7 @@ class ExtractedDataForm extends GetWidget<DataExtractorController> {
               title: "Save",
               isLoading: controller.isSaving.value,
               onTap: () {
-                controller.writeToGoogleSheet();
+                controller.savaExtractedData();
               },
             ),
             const SizedBox(height: 20),
