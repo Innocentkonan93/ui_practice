@@ -5,10 +5,10 @@ import 'package:ui_challenge/app/modules/data_extractor/controllers/data_extract
 import 'package:ui_challenge/app/modules/data_extractor/models/identity_card.dart';
 import 'package:ui_challenge/app/widgets/custom_button.dart';
 
-class ExtractedDataForm extends GetWidget<DataExtractorController> {
+class ExtractedIdentityDataForm extends GetWidget<DataExtractorController> {
   final IdentityCard identityCard;
 
-  const ExtractedDataForm({super.key, required this.identityCard});
+  const ExtractedIdentityDataForm({super.key, required this.identityCard});
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +24,7 @@ class ExtractedDataForm extends GetWidget<DataExtractorController> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: ListView(
+          controller: controller.scrollController,
           children: [
             _buildTextField('Card Type', identityCard.type),
             _buildTextField('Category', identityCard.drivingLicenseCategory),
@@ -46,9 +47,7 @@ class ExtractedDataForm extends GetWidget<DataExtractorController> {
             CustomButton(
               title: "Save",
               isLoading: controller.isSaving.value,
-              onTap: () {
-                controller.savaExtractedData();
-              },
+              onTap: () {},
             ),
             const SizedBox(height: 20),
           ],

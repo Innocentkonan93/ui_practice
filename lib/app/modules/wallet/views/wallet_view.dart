@@ -23,7 +23,7 @@ class _WalletViewState extends State<WalletView> {
   late ScrollController scrollController;
 
   void showNotif() async {
-    showGeneralDialog<bool>(
+    await showGeneralDialog<bool>(
       barrierColor: Colors.black.withValues(alpha: 0.35),
       transitionBuilder: (context, a1, a2, widget) {
         return GestureDetector(
@@ -101,7 +101,17 @@ class _WalletViewState extends State<WalletView> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Icon(Icons.home),
+                      // const Icon(Icons.home),
+                      IconButton.filledTonal(
+                        style: ButtonStyle(
+                            backgroundColor: WidgetStateColor.resolveWith(
+                          (states) => Colors.white,
+                        )),
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.home_rounded,
+                        ),
+                      ),
                       GestureDetector(
                         onTap: showNotif,
                         child: const Text(
@@ -111,9 +121,10 @@ class _WalletViewState extends State<WalletView> {
                       ),
                       IconButton.filledTonal(
                         style: ButtonStyle(
-                            backgroundColor: WidgetStateColor.resolveWith(
-                          (states) => Colors.white,
-                        )),
+                          backgroundColor: WidgetStateColor.resolveWith(
+                            (states) => Colors.white,
+                          ),
+                        ),
                         onPressed: () {},
                         icon: const Icon(Icons.more_horiz),
                       ),

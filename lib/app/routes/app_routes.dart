@@ -12,6 +12,10 @@ abstract class Routes {
   static const WALLET = _Paths.WALLET;
   static const LOADING = _Paths.LOADING;
   static const DATA_EXTRACTOR = _Paths.DATA_EXTRACTOR;
+  static const CODE_SCANNER = _Paths.CODE_SCANNER;
+  static const KKI_LIST = _Paths.KKI_LIST;
+  static const TALL_SELECTION = _Paths.TALL_SELECTION;
+  static const DYNAMIC_LIST = _Paths.DYNAMIC_LIST;
 }
 
 abstract class _Paths {
@@ -23,4 +27,8 @@ abstract class _Paths {
   static const WALLET = '/wallet';
   static const LOADING = '/loading';
   static const DATA_EXTRACTOR = '/data-extractor';
+  static const CODE_SCANNER = '/code-scanner';
+  static const KKI_LIST = '/kki-list';
+  static const TALL_SELECTION = '/tall-selection';
+  static const DYNAMIC_LIST = '/dynamic-list';
 }
