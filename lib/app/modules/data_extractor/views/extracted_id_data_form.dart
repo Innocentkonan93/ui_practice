@@ -41,7 +41,7 @@ class ExtractedIdentityDataForm extends GetWidget<DataExtractorController> {
             _buildPhotoSection(identityCard.photo),
             _buildSignatureSection(identityCard.signature),
             _buildListView(
-                'Mésure de sécurité', identityCard.securityFeatures!),
+                'Mésure de sécurité', identityCard.securityFeatures ?? []),
             _buildTextField('Remarks', identityCard.remarks),
             const SizedBox(height: 20),
             CustomButton(
@@ -135,7 +135,7 @@ class ExtractedIdentityDataForm extends GetWidget<DataExtractorController> {
     );
   }
 
-  Widget _buildListView(String label, List<String> items) {
+  Widget _buildListView(String label, List<String>? items) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Column(
@@ -147,7 +147,7 @@ class ExtractedIdentityDataForm extends GetWidget<DataExtractorController> {
               fontWeight: FontWeight.bold,
             ),
           ),
-          ...items.map((item) => Text(item)),
+          ...items?.map((item) => Text(item)) ?? [],
         ],
       ),
     );

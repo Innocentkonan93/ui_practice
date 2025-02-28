@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:ui_challenge/app/modules/data_extractor/views/extracted_data_list_view.dart';
 import 'package:ui_challenge/app/widgets/custom_button.dart';
 
@@ -68,12 +69,25 @@ class DataExtractorView extends GetView<DataExtractorController> {
           );
         }),
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          controller.pickImage();
-        },
-        label: const Text('Camera'),
-        icon: const Icon(Icons.camera_alt),
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          ElevatedButton.icon(
+            onPressed: () {
+              controller.pickImage(ImageSource.gallery);
+            },
+            label: const Text("Galérie"),
+            icon: const Icon(Icons.image),
+          ),
+          SizedBox(width: 20),
+          ElevatedButton.icon(
+            onPressed: () {
+              controller.pickImage(ImageSource.camera);
+            },
+            label: const Text('Camera'),
+            icon: const Icon(Icons.camera_alt),
+          ),
+        ],
       ),
     );
   }

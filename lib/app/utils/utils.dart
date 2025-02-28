@@ -46,3 +46,16 @@ void showSnackbar(String text, [bool isSuccess = false]) {
     ),
   );
 }
+
+bool isSameDay(DateTime date) {
+  DateTime now = DateTime.now();
+  return date.year == now.year &&
+      date.month == now.month &&
+      date.day == now.day;
+}
+
+String formatDuration(Duration duration) {
+  int minutes = duration.inMinutes;
+  int seconds = duration.inSeconds % 60;
+  return "${minutes}min ${seconds}s";
+}

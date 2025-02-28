@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:open_filex/open_filex.dart';
@@ -41,9 +40,10 @@ class DataExtractorController extends GetxController {
   Rxn<VehicleCard> selectedVehicleCard = Rxn<VehicleCard>();
 
   /// Sélectionne une image depuis la galerie
-  Future<void> pickImage() async {
+  Future<void> pickImage(ImageSource source) async {
     final XFile? pickedFile = await _picker.pickImage(
-        source: kDebugMode ? ImageSource.gallery : ImageSource.camera);
+      source: source,
+    );
 
     if (pickedFile != null) {
       selectedImage.value = File(pickedFile.path);
@@ -67,10 +67,9 @@ class DataExtractorController extends GetxController {
       // Convertir la chaîne JSON en un objet Map
       if (jsonString.isNotEmpty) {
         Map<String, dynamic> jsonData = jsonDecode(jsonString);
-
-        log(jsonData['firstDate'].runtimeType.toString());
-
+        log(jsonData.toString());
         if (jsonData['type'].toString().toLowerCase() == 'carte grise') {
+          // log(jsonData['firstDate'].runtimeType.toString());
           VehicleCard vehicleCard = VehicleCard.fromJson(jsonData);
           // print(vehicleCard.firstDate);
           Get.to(() => ExtractedCarDataForm(vehicleCard: vehicleCard));

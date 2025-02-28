@@ -53,9 +53,13 @@ class IdentityCard {
       nationality: json['nationality'],
       placeOfBirth: json['place_of_birth'],
       expirationDate: json['expiration_date'],
-      photo: Photo.fromJson(json['photo']),
-      signature: Signature.fromJson(json['signature']),
-      securityFeatures: List<String>.from(json['security_features']),
+      photo: json['photo'] == null ? null : Photo.fromJson(json['photo']),
+      signature: json['signature'] == null
+          ? null
+          : Signature.fromJson(json['signature']),
+      securityFeatures: json['security_features'] == null
+          ? <String>[]
+          : List<String>.from(json['security_features']),
       remarks: json['remarks'],
     );
   }
@@ -197,8 +201,8 @@ class IdentityCard {
 }
 
 class Photo {
-  final bool present;
-  final String description;
+  final bool? present;
+  final String? description;
 
   Photo({
     required this.present,
@@ -207,8 +211,8 @@ class Photo {
 
   factory Photo.fromJson(Map<String, dynamic> json) {
     return Photo(
-      present: json['present'],
-      description: json['description'],
+      present: json['present'] ?? false,
+      description: json['description'] ?? '',
     );
   }
 
@@ -255,7 +259,7 @@ class Photo {
 }
 
 class Signature {
-  final bool present;
+  final bool? present;
   final String? description;
 
   Signature({
@@ -290,7 +294,7 @@ class Signature {
   factory Signature.fromMap(Map<String, dynamic> map) {
     return Signature(
       present: map['present'] ?? false,
-      description: map['description'],
+      description: map['description'] ?? '',
     );
   }
 
