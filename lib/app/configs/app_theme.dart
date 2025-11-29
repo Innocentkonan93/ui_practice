@@ -16,7 +16,7 @@ ThemeData appTheme = ThemeData(
       decoration: BoxDecoration(
     color: AppColors.white,
   )),
-  cardTheme: const CardTheme(
+  cardTheme: const CardThemeData(
     color: AppColors.white, // reset margin
   ),
   appBarTheme: AppBarTheme(
@@ -75,8 +75,8 @@ ThemeData appTheme = ThemeData(
     errorBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(10),
       borderSide: BorderSide(
-        color: Colors.red.withValues(alpha: .2),
-        width: 0.5,
+        color: Colors.transparent.withValues(alpha: .2),
+        width: .5,
       ),
     ),
     focusedBorder: OutlineInputBorder(
@@ -86,6 +86,7 @@ ThemeData appTheme = ThemeData(
         width: .8,
       ),
     ),
+    errorStyle: TextStyle(height: 0),
   ),
   radioTheme: const RadioThemeData(),
   textTheme: GoogleFonts.jostTextTheme()

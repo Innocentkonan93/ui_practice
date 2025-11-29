@@ -10,7 +10,7 @@ import 'app/routes/app_pages.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   //
-  await DatabaseHelper().initDb();
+  // await DatabaseHelper().initDb();
   //
   initializeDateFormatting("fr_FR", null).then((_) {
     runApp(MyApp());
@@ -26,6 +26,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: "Application",
       initialRoute: AppPages.INITIAL,
+      debugShowCheckedModeBanner: false,
       getPages: AppPages.routes,
       theme: appTheme,
     );

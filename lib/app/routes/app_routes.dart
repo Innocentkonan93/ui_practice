@@ -16,6 +16,11 @@ abstract class Routes {
   static const KKI_LIST = _Paths.KKI_LIST;
   static const TALL_SELECTION = _Paths.TALL_SELECTION;
   static const DYNAMIC_LIST = _Paths.DYNAMIC_LIST;
+  static const PAGE_TRANSITION = _Paths.PAGE_TRANSITION;
+  static const AUTH_UI = _Paths.AUTH_UI;
+  static const TOGGLER = _Paths.TOGGLER;
+  static const NUMBER_LED = _Paths.NUMBER_LED;
+  static const AVANCED_CHAT_UI = _Paths.AVANCED_CHAT_UI;
 }
 
 abstract class _Paths {
@@ -31,4 +36,9 @@ abstract class _Paths {
   static const KKI_LIST = '/kki-list';
   static const TALL_SELECTION = '/tall-selection';
   static const DYNAMIC_LIST = '/dynamic-list';
+  static const PAGE_TRANSITION = '/page-transition';
+  static const AUTH_UI = '/auth-ui';
+  static const TOGGLER = '/toggler';
+  static const NUMBER_LED = '/number-led';
+  static const AVANCED_CHAT_UI = '/avanced-chat-ui';
 }

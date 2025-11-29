@@ -1,8 +1,10 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:googleapis/domains/v1.dart';
 import 'package:ui_challenge/app/modules/dynamic_list/models/contact_model.dart';
 
 class DynamicListController extends GetxController {
+  // Contrôleurs de champs de texte pour les formulaires
+
   RxList<ContactModel> filteredContacts = <ContactModel>[].obs;
   RxnInt selectedIndex = RxnInt();
   RxnInt selectedContactIndex = RxnInt();

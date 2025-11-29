@@ -1,5 +1,9 @@
 import 'package:get/get.dart';
 
+import '../modules/auth_ui/bindings/auth_ui_binding.dart';
+import '../modules/auth_ui/views/auth_ui_view.dart';
+import '../modules/avanced_chat_ui/bindings/avanced_chat_ui_binding.dart';
+import '../modules/avanced_chat_ui/views/avanced_chat_ui_view.dart';
 import '../modules/code_scanner/bindings/code_scanner_binding.dart';
 import '../modules/code_scanner/views/code_scanner_view.dart';
 import '../modules/data_extractor/bindings/data_extractor_binding.dart';
@@ -14,12 +18,18 @@ import '../modules/lighter/bindings/lighter_binding.dart';
 import '../modules/lighter/views/lighter_view.dart';
 import '../modules/loading/bindings/loading_binding.dart';
 import '../modules/loading/views/loading_view.dart';
+import '../modules/number_led/bindings/number_led_binding.dart';
+import '../modules/number_led/views/number_led_view.dart';
+import '../modules/page_transition/bindings/page_transition_binding.dart';
+import '../modules/page_transition/views/page_transition_view.dart';
 import '../modules/price_card/bindings/price_card_binding.dart';
 import '../modules/price_card/views/price_card_view.dart';
 import '../modules/scratch_card/bindings/scratch_card_binding.dart';
 import '../modules/scratch_card/views/scratch_card_view.dart';
 import '../modules/tall_selection/bindings/tall_selection_binding.dart';
 import '../modules/tall_selection/views/tall_selection_view.dart';
+import '../modules/toggler/bindings/toggler_binding.dart';
+import '../modules/toggler/views/toggler_view.dart';
 import '../modules/wallet/bindings/wallet_binding.dart';
 import '../modules/wallet/views/wallet_view.dart';
 
@@ -30,7 +40,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.DYNAMIC_LIST;
+  static const INITIAL = Routes.AVANCED_CHAT_UI;
 
   static final routes = [
     GetPage(
@@ -87,6 +97,31 @@ class AppPages {
       name: _Paths.DYNAMIC_LIST,
       page: () => const DynamicListView(),
       binding: DynamicListBinding(),
+    ),
+    GetPage(
+      name: _Paths.PAGE_TRANSITION,
+      page: () => const PageTransitionView(),
+      binding: PageTransitionBinding(),
+    ),
+    GetPage(
+      name: _Paths.AUTH_UI,
+      page: () => const AuthUiView(),
+      binding: AuthUiBinding(),
+    ),
+    GetPage(
+      name: _Paths.TOGGLER,
+      page: () => const TogglerView(),
+      binding: TogglerBinding(),
+    ),
+    GetPage(
+      name: _Paths.NUMBER_LED,
+      page: () => const NumberLedView(),
+      binding: NumberLedBinding(),
+    ),
+    GetPage(
+      name: _Paths.AVANCED_CHAT_UI,
+      page: () => const AvancedChatUiView(),
+      binding: AvancedChatUiBinding(),
     ),
   ];
 }
