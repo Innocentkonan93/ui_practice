@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ui_challenge/app/modules/avanced_chat_ui/controllers/avanced_chat_ui_controller.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class ReceiverStatusBar extends GetWidget<AvancedChatUiController> {
   const ReceiverStatusBar({
@@ -12,6 +13,9 @@ class ReceiverStatusBar extends GetWidget<AvancedChatUiController> {
   Widget build(BuildContext context) {
     return Obx(() {
       final selectedReceiver = controller.selectedReceiver.value;
+      if (controller.isRecording.value == true) {
+        return SizedBox.shrink();
+      }
       return DecoratedBox(
         decoration: BoxDecoration(
           color: Colors.white,
@@ -118,7 +122,10 @@ class ReceiverStatusBar extends GetWidget<AvancedChatUiController> {
             ),
           ],
         ),
-      );
+      )
+          .animate()
+          .fadeIn()
+          .slideY(begin: 1, end: 0, duration: Duration(milliseconds: 300));
     });
   }
 }

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:ui_challenge/app/configs/app_theme.dart';
 import 'package:ui_challenge/app/modules/avanced_chat_ui/controllers/avanced_chat_ui_controller.dart';
 import 'package:ui_challenge/app/modules/avanced_chat_ui/views/custom_date_filter_dialog.dart';
+import 'package:ui_challenge/app/widgets/image_viewer.dart';
 
 import '../models/chat_message_model.dart';
 
@@ -156,16 +156,11 @@ class _MessageBubble extends StatelessWidget {
               maxWidth: MediaQuery.of(context).size.width * 0.7,
             ),
             child: DecoratedBox(
-              decoration: BoxDecoration(
+              decoration: ShapeDecoration(
                 color: bubbleColor,
-                borderRadius: borderRadius,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.05),
-                    offset: const Offset(0, 4),
-                    blurRadius: 12,
-                  ),
-                ],
+                shape: RoundedSuperellipseBorder(
+                  borderRadius: borderRadius,
+                ),
               ),
               child: Padding(
                 padding:
@@ -231,8 +226,6 @@ class _MessageContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = context.theme;
-    final screenWidth = MediaQuery.sizeOf(context).width;
-    final screenHeight = MediaQuery.sizeOf(context).height;
     switch (message.type) {
       case MessageType.text:
         return Text(
@@ -247,12 +240,26 @@ class _MessageContent extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Flexible(
-              child: Image.asset(
-                message.content,
-                width: 100,
-                errorBuilder: (context, error, stackTrace) {
-                  return Icon(Icons.error);
+              child: GestureDetector(
+                onTap: () {
+                  Get.to(
+                    () => ImageViewer(
+                      imageUrl: message.content,
+                    ),
+                    fullscreenDialog: true,
+                    transition: Transition.fadeIn,
+                  );
                 },
+                child: Hero(
+                  tag: message.content,
+                  child: Image.asset(
+                    message.content,
+                    width: 100,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Icon(Icons.error);
+                    },
+                  ),
+                ),
               ),
             ),
           ],

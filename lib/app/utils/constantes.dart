@@ -135,7 +135,7 @@ final Map<int, List<List<int>>> numberPatterns = {
 final menu = [
   {
     "id": 0,
-    "name": "Image",
+    "name": "Images",
     "icon": Icons.image,
   },
   {
@@ -145,7 +145,7 @@ final menu = [
   },
   {
     "id": 2,
-    "name": "Contact",
+    "name": "Contacts",
     "icon": Icons.contact_page_rounded,
   },
   {

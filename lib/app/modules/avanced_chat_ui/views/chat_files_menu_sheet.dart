@@ -1,17 +1,25 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:get/get_state_manager/src/simple/get_state.dart';
+import 'package:get/get.dart';
+
 import 'package:ui_challenge/app/modules/avanced_chat_ui/controllers/avanced_chat_ui_controller.dart';
+import 'package:ui_challenge/app/modules/avanced_chat_ui/views/chat_camera_view.dart';
 import 'package:ui_challenge/app/utils/constantes.dart';
 
 class ChatFilesMenuSheet extends StatelessWidget {
   const ChatFilesMenuSheet({
     super.key,
+    this.title,
   });
+  final String? title;
 
   @override
   Widget build(BuildContext context) {
+    final theme = context.theme;
+    final size = MediaQuery.sizeOf(context);
+    final height = size.height;
+    final width = size.width;
     return GetBuilder<AvancedChatUiController>(builder: (controller) {
       return DraggableScrollableSheet(
         initialChildSize: 0.45,
@@ -19,6 +27,7 @@ class ChatFilesMenuSheet extends StatelessWidget {
         maxChildSize: 0.9,
         snap: true,
         snapSizes: const [0.45, 0.7, 0.9],
+        controller: controller.draggableScrollableController,
         builder: (context, scrollController) {
           return Container(
             decoration: const BoxDecoration(
@@ -32,6 +41,15 @@ class ChatFilesMenuSheet extends StatelessWidget {
               children: [
                 Row(
                   children: [
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        left: 12,
+                      ),
+                      child: Text(
+                        title ?? "Galerie",
+                        style: theme.textTheme.titleLarge,
+                      ),
+                    ),
                     Spacer(),
                     IconButton(
                       onPressed: () {
@@ -82,10 +100,12 @@ class ChatFilesMenuSheet extends StatelessWidget {
                               },
                               child: Container(
                                 padding: EdgeInsets.all(2),
-                                decoration: BoxDecoration(
+                                decoration: ShapeDecoration(
                                   color: Colors.primaries[
                                       index % Colors.primaries.length],
-                                  borderRadius: BorderRadius.circular(5),
+                                  shape: RoundedSuperellipseBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
                                   image: DecorationImage(
                                     image: AssetImage(
                                         gallery[index]['image'] as String),
@@ -111,9 +131,10 @@ class ChatFilesMenuSheet extends StatelessWidget {
                             );
                           },
                         ),
-                        Container(
-                          color: Colors.red,
-                          child: Text('Camera'),
+                        SizedBox(
+                          width: double.infinity,
+                          height: height * 0.7,
+                          child: ChatCameraView(),
                         ),
                         Container(
                           color: Colors.blue,

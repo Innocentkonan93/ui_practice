@@ -58,12 +58,12 @@ class AvancedChatUiView extends GetView<AvancedChatUiController> {
                         child: Container(
                           padding: const EdgeInsets.all(8),
                           alignment: Alignment.bottomCenter,
-                          child: Container(
+                          child: SizedBox(
                             height: 70,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
-                                Container(
+                                SizedBox(
                                   height: 50,
                                   width: double.infinity,
                                   child: Obx(() {
@@ -242,7 +242,10 @@ class AvancedChatUiView extends GetView<AvancedChatUiController> {
                   ),
                 ),
                 if (controller.showMenu.value)
-                  ChatFilesMenuSheet().animate().slideY(
+                  ChatFilesMenuSheet(
+                    title:
+                        menu[controller.selectedMenu.value]['name'] as String,
+                  ).animate().slideY(
                         begin: 1,
                         end: 0,
                         duration: Duration(

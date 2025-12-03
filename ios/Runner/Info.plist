@@ -62,5 +62,8 @@
 			</dict>
 		</dict>
 	</dict>
+	<!-- Audio recording permission for iOS -->
+	<key>NSMicrophoneUsageDescription</key>
+	<string>This app needs access to the microphone to record audio messages.</string>
 </dict>
 </plist>

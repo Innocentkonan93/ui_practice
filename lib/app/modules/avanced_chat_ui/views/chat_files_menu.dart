@@ -18,8 +18,10 @@ class ChatFilesMenu extends GetWidget<AvancedChatUiController> {
         return Container(
           height: 150,
           padding: const EdgeInsets.symmetric(horizontal: 16),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16),
+          decoration: ShapeDecoration(
+            shape: RoundedSuperellipseBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
           ),
           child: Row(
             children: [
@@ -95,7 +97,7 @@ class ChatFilesMenu extends GetWidget<AvancedChatUiController> {
               menu.length,
               (index) {
                 Map<String, dynamic> item = menu[index];
-                return Container(
+                return SizedBox(
                   width: 90,
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
@@ -104,6 +106,13 @@ class ChatFilesMenu extends GetWidget<AvancedChatUiController> {
                       GestureDetector(
                         onTap: () {
                           controller.selectedMenu.value = item['id'];
+                          if (item['id'] == 1) {
+                            controller.draggableScrollableController.animateTo(
+                              0.95,
+                              duration: Duration(milliseconds: 300),
+                              curve: Curves.easeOutBack,
+                            );
+                          }
                           controller.update();
                         },
                         child: AnimatedContainer(
@@ -113,11 +122,13 @@ class ChatFilesMenu extends GetWidget<AvancedChatUiController> {
                           height: 80,
                           width: double.infinity,
                           margin: EdgeInsets.all(5),
-                          decoration: BoxDecoration(
+                          decoration: ShapeDecoration(
                             color: controller.selectedMenu.value == item['id']
                                 ? AppColors.purple
                                 : Colors.transparent,
-                            borderRadius: BorderRadius.circular(20),
+                            shape: RoundedSuperellipseBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
                           ),
                           child: Icon(
                             item['icon'],
